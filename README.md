@@ -26,13 +26,17 @@ Production-style Selenium + Pytest QA automation framework for web UI testing.
 
 ## Reference Website Under Test
 
-- `https://www.saucedemo.com/`
+- Default: Local demo website (`sample_site/index.html`) for fully offline execution
+- Optional: Any public URL via `--base-url` or `BASE_URL` environment variable
 
 ## Project Structure
 
 ```text
 selinum/
 ├── .github/workflows/ui-tests.yml
+├── sample_site/
+│   ├── index.html
+│   └── inventory.html
 ├── src/
 │   ├── pages/
 │   │   ├── base_page.py
@@ -61,6 +65,12 @@ pip install -r requirements.txt
 
 ```bash
 pytest --browser=chrome
+```
+
+### Run against any external website URL
+
+```bash
+pytest --browser=chrome --headless --base-url=https://example.com/
 ```
 
 ### Headless run (CI-like)
@@ -109,4 +119,3 @@ GitHub Actions workflow:
 
 - Executes UI tests on push / PR
 - Uploads HTML report, screenshots, and Allure raw results as artifacts
-

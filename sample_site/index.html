@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f7fb; }
+    .container { max-width: 420px; margin: 8vh auto; background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 6px 24px rgba(0,0,0,.08); }
+    .field { margin-bottom: 12px; }
+    input, button { width: 100%; padding: 10px; border: 1px solid #cdd5df; border-radius: 6px; box-sizing: border-box; }
+    button { background: #2563eb; color: #fff; border: 0; cursor: pointer; }
+    h3[data-test='error'] { color: #b91c1c; min-height: 20px; margin: 10px 0 0; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>QA Demo Site</h1>
+    <div class="field"><input id="user-name" type="text" placeholder="Username" /></div>
+    <div class="field"><input id="password" type="password" placeholder="Password" /></div>
+    <button id="login-button" type="button">Login</button>
+    <h3 data-test="error" role="alert"></h3>
+  </main>
+
+  <script>
+    const USERS = {
+      standard_user: { password: 'secret_sauce', status: 'active' },
+      locked_out_user: { password: 'secret_sauce', status: 'locked' }
+    };
+
+    document.getElementById('login-button').addEventListener('click', () => {
+      const username = document.getElementById('user-name').value.trim();
+      const password = document.getElementById('password').value;
+      const errorNode = document.querySelector("h3[data-test='error']");
+      const user = USERS[username];
+
+      if (!user || user.password !== password) {
+        errorNode.textContent = 'Epic sadface: Username and password do not match any user in this service';
+        return;
+      }
+
+      if (user.status === 'locked') {
+        errorNode.textContent = 'Epic sadface: Sorry, this user has been locked out.';
+        return;
+      }
+
+      window.location.href = './inventory.html';
+    });
+  </script>
+</body>
+</html>

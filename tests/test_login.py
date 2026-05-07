@@ -24,6 +24,6 @@ def test_locked_out_user_cannot_login(driver, base_url):
     login_page = LoginPage(driver)
 
     login_page.open(base_url)
-    login_page.login(config.invalid_user, config.invalid_password)
+    login_page.login(config.locked_user, config.locked_password)
 
     assert "locked out" in login_page.get_error_message().lower()
